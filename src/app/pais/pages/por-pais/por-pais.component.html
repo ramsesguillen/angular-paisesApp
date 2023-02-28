@@ -1,0 +1,45 @@
+<h2>Por País</h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <app-pais-input
+      placeholder="Buscar país..."
+      (onEnter)="buscar($event)"
+      (onDebounce)="sugerencias($event)"
+    ></app-pais-input>
+  </div>
+</div>
+
+<!-- [routerLink]="['/pais', pais.cca2]" -->
+<!-- pais.name.official -->
+  <ul class="list-group" *ngIf="mostrarSugerencias">
+    <li class="list-group-item list-group-item-action" *ngFor="let pais of paisesSugeridos">
+      <a class="nav-link" [routerLink]="['/pais', pais.cca2]">
+        pais.name.official
+      </a>
+    </li>
+    <li class="list-group-item list-group-item-action"
+      (click)="buscarSugerido(termino)"
+    >
+      <a class="nav-link">
+        buscar "{{ termino }}"
+      </a>
+    </li>
+  </ul>
+
+  <hr>
+
+<hr>
+<div
+  *ngIf="hayError"
+  class="alert alert-danger"
+>
+  No se encontró nada con el termino {{ termino }}
+</div>
+
+<div class="row" *ngIf="paises.length > 0">
+  <div class="col">
+    <app-pais-table [paises]="paises"></app-pais-table>
+  </div>
+</div>
